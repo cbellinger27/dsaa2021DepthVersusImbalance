@@ -1,0 +1,40 @@
+DSAA Experiments on MNIST Fashion data
+For data see: https://www.tensorflow.org/tutorials/keras/classification
+
+
+All experiments were performed with Python 3.7.6, Tensorflow 2.1.0 on Ubuntu 18.04.5 LTS desktop running a GeForce RTX 2080 Ti GPU1.
+
+Class combination
+clsA = [2,2,0,5,6,3,5,8,7]
+clsB = [4,6,3,7,4,7,9,2,9]
+
+#  MODEL SIZES
+modelSizes = [1,2,3,4,5]
+# modelSizes = [1]
+
+#  IMBALANCE RATIOS
+irs = [0.025, 0.05,0.15,0.3]
+
+
+# training / testing split: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html
+rskf = RepeatedStratifiedKFold(n_splits=10, n_repeats=2, random_state=36851234)
+# training / validation split: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html
+ss = StratifiedShuffleSplit(n_splits=2, test_size=0.3, random_state=568453)
+
+## Model training: Tensorflow 2 Keras: https://www.tensorflow.org/api_docs/python/tf
+reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.2, patience=5, min_lr=1e-5)
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_prc', verbose=0,patience=10,mode='max',restore_best_weights=True)
+
+#  BATCH SIZE
+btchSz = 32
+
+# Epochs
+ep = 50
+
+## Evaluation metrics
+# From sklearn metrics: https://scikit-learn.org/stable/modules/model_evaluation.html
+f1_score(y_test, y_pred, average='macro'))
+balanced_accuracy_score(y_test, y_pred))
+# From imblearn metrics: http://glemaitre.github.io/imbalanced-learn/api.html#module-imblearn.metrics
+geometric_mean_score(y_test, y_pred))
+

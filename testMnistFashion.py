@@ -86,7 +86,7 @@ for ir in irs:
         #model depth loop
         for ms in modelSizes:
             #Stratified CV loop
-            rskf = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=36851234)
+            rskf = RepeatedStratifiedKFold(n_splits=10, n_repeats=2, random_state=36851234)
             tmpGm = np.array([])
             tmpBa = np.array([])
             tmpFm = np.array([])
